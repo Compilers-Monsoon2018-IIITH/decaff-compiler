@@ -1,0 +1,17 @@
+class Program
+{
+	int fact(int n)
+	{
+		if(n==0 || n==1)
+			return 1;
+		else
+			return n*fact(n-1);
+	}
+	void main()
+	{
+		int a, n;
+		callout("scanf", "%d", &n);
+		a = fact(n);
+		callout("printf", "Factorial of %d is %d", n, a);
+	}
+}
