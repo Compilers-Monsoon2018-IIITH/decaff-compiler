@@ -20,13 +20,12 @@ ID                     {Alpha}{Alpha_num}*
 "/"					{return '/';}
 "("					{return '(';}
 ")"					{return ')';}
-"=="                {return '==';}
 ">"					{return '>';}
 "<"                 {return '<';}
-"<="				{return '<=';}
-">="				{return '>=';}
-"&&"				{return '&&';}
-"||"				{return '||';}
+"="					{printf("kjkdh");return '=';}
+"!"					{return '!';}
+"&"					{return '&';}
+"|"					{return '|';}
 "["					{return '[';}
 "]"					{return ']';}
 [\']				{return "'";}

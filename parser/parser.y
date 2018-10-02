@@ -2,7 +2,7 @@
 #include <stdio.h>	
 %}
 
-%token ID hex_literal decimal_literal char_literal arrayID
+%token ID hex_literal decimal_literal char_literal arrayID true false string_literal method_call location Alpha Alpha_star digit_star
 %left '+' '-'
 %left '*' '/'
 
@@ -17,9 +17,7 @@ expr   : location
 	   | '(' expr ')'
 	   ;
 	   
-callout_arg : expr
-			| string_literal
-			;
+
 
 bin_op   : arth_op
 		 | rel_op
@@ -36,16 +34,16 @@ arth_op   : '+'
 
 rel_op   : '<'
 		 | '>'
-		 | '<='
-		 | '>='
+		 | '<''='
+		 | '>''='
 		 ;
 
-eq_op   : '=='
-		| '!='
+eq_op   : '=''='
+		| '!''='
 		;
 
-cond_op   : '&&'
-		  | '||'
+cond_op   : '&''&'
+		  | '|''|'
 		  ;
 
 
