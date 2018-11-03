@@ -22,7 +22,7 @@
 %debug
 
 /* start symbol is named "start" */
-%start line
+%start program
 
 /* write out a header file containing the token defines */
 %defines
@@ -57,10 +57,28 @@
 %union
 {
 	int integerVal;
+	std::string* stringVal;
     class ASTnode* astnode;
+    class ProgASTnode* progastnode;
+    class DeclASTnode* declastnode;
+    class FieldDeclsASTnode* fildeclsastnode;
+    class FieldDeclASTnode* fildeclastnode;
+    class VarstarASTnode* varstrastnode;
+    class VarASTnode* varastnode;
+    class IntLitASTnode* intlitastnode;
+    class TypeASTnode* typeastnode;
+
 }
 
-%type <astnode>	line expr 
+%type <progastnode> program 
+%type <declastnode> declaration
+%type <fildeclsastnode> field_decls
+%type <fildeclastnode> field_decl
+%type <varstrastnode> variable_star
+%type <varastnode> variable
+%type <intlitastnode> int_literal
+%type <typeastnode> TYPE
+
 
 //%destructor { delete $$; } expr
 
@@ -77,8 +95,11 @@
 %}
 
 %token END 0
-%token EOL
-%token <integerVal> INT_LITERAL
+%token EOL VOID
+%token <integerVal> hex_literal decimal_literal 
+%token <stringVal> ID char_literal TRUE FALSE PROGRAM
+%token <stringVal> INT BOOLEAN IF FOR ELSE CLASS CALLOUT CONTINUE
+%token <stringVal> RETURN BREAK string_literal	
 %left '?'
 %left '+' '-'
 %left '*' '/'
@@ -86,20 +107,38 @@
 
 %%
 
-line:
-		EOL       { $$ = NULL; driver.ast.pRoot = NULL;}
-	|	expr ';'  { $$ = $1; driver.ast.pRoot = $1; }
-	;
+program : CLASS PROGRAM '{' declaration '}'  {$$ = new ProgASTnode($4); driver.ast.pRoot = $$;}
+		;
 
-expr:
-		'(' expr ')'			{ $$ = $2 ; }
-	|	expr '+' expr			{ $$ = new BinaryASTnode("+", $1, $3); }
-	|	expr '-' expr			{ $$ = new BinaryASTnode("-", $1, $3); }
-	|	expr '*' expr			{ $$ = new BinaryASTnode("*", $1, $3); }
-	|	expr '/' expr			{ $$ = new BinaryASTnode("/", $1, $3); }
-	|	expr '?' expr ':' expr	{ $$ = new TernaryASTnode($1, $3, $5); }
-	|	INT_LITERAL				{ $$ = new IntLitASTnode($1); }
-	;
+declaration :field_decls method_decls {$$ = new DeclASTnode($1,$2); }
+			;
+
+field_decls : field_decl field_decls {$$ = $2 ; $$->push_back($1); }
+			|  {$$ = new FieldDeclsASTnode();}
+			;
+
+		
+
+field_decl : TYPE variable_star ';'{$$ = new FieldDeclASTnode($1,$2);}
+		   ;
+
+variable_star : variable {$$ = new VarstarASTnode(); $$->push_back($1); }
+			  | variable ',' variable_star {$$ = $3 ; $$->push_back($1); }
+			  ;
+
+variable : ID {$$ = new VarASTnode(string("Normal"),*$1); }
+		 | ID '[' int_literal ']' {$$ = new VarASTnode(string("Array"),*$1,$3);}
+		 ;
+		   		  	  
+
+
+int_literal : decimal_literal {$$ = new IntLitASTnode(string("dec"),$1);}
+			| hex_literal {$$ = new IntLitASTnode(string("hex"),$1);}
+			;
+
+TYPE : INT {$$ = new TypeASTnode(*$1);}
+	 | BOOLEAN {$$ = new TypeASTnode(*$1);}
+	 ;
 
 %%
 

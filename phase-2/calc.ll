@@ -49,16 +49,55 @@ typedef decaf::Parser::token_type token_type;
 
 %% /*** Regular Expressions Part ***/
 
+
  /* code to place at the beginning of yylex() */
 %{
     // reset location
     yylloc->step();
 %}
 
-[0-9]+      {
-                yylval->integerVal = atoi(yytext);
-                return token::INT_LITERAL;
-            }
+[0-9][0-9]*         {yylval->integerVal = atoi(yytext); return token::decimal_literal;}
+"class"             {yylval->stringVal = new std::string(yytext,yyleng); return token::CLASS;}
+"Program"           {yylval->stringVal = new std::string(yytext,yyleng); return token::PROGRAM;}
+"void"              {yylval->stringVal = new std::string(yytext,yyleng); return token::VOID;}
+"callout"           {yylval->stringVal = new std::string(yytext,yyleng); return token::CALLOUT;}
+"int"               {yylval->stringVal = new std::string(yytext,yyleng); return token::INT;}
+"boolean"           {yylval->stringVal = new std::string(yytext,yyleng); return token::BOOLEAN;}
+"for"               {yylval->stringVal = new std::string(yytext,yyleng); return token::FOR;}
+"break"             {yylval->stringVal = new std::string(yytext,yyleng); return token::BREAK;}
+"continue"          {yylval->stringVal = new std::string(yytext,yyleng); return token::CONTINUE;}
+"if"                {yylval->stringVal = new std::string(yytext,yyleng); return token::IF;}
+"else"              {yylval->stringVal = new std::string(yytext,yyleng); return token::ELSE;}
+"return"            {yylval->stringVal = new std::string(yytext,yyleng); return token::RETURN;}
+"true"              {yylval->stringVal = new std::string(yytext,yyleng); return token::TRUE;}
+"false"             {yylval->stringVal = new std::string(yytext,yyleng); return token::FALSE;}
+
+"0x"[0-9a-fA-F][0-9a-fA-F]*  {yylval->stringVal = new std::string(yytext,yyleng); return token::INT;}
+['](\\n|\\t|\\'|\\\\|\\\"|[^\\"'])[']      {yylval->stringVal = new std::string(yytext,yyleng); return token::char_literal;}
+["](\\n|\\t|\\'|\\\\|\\\"|[^\\"'])*["]    {yylval->stringVal = new std::string(yytext,yyleng); return token::string_literal;}
+[a-zA-Z]([a-zA-Z]|[0-9])*               {yylval->stringVal = new std::string(yytext,yyleng); return token::ID;}
+
+"+"                 {return static_cast<token_type>(*yytext);}
+"-"                 {return static_cast<token_type>(*yytext);}
+"*"                 {return static_cast<token_type>(*yytext);}
+"/"                 {return static_cast<token_type>(*yytext);}
+"("                 {return static_cast<token_type>(*yytext);}
+")"                 {return static_cast<token_type>(*yytext);}
+"%"                 {return static_cast<token_type>(*yytext);}
+"}"                 {return static_cast<token_type>(*yytext);}
+"{"                 {return static_cast<token_type>(*yytext);}
+">"                 {return static_cast<token_type>(*yytext);}
+"<"                 {return static_cast<token_type>(*yytext);}
+"="                 {return static_cast<token_type>(*yytext);}
+"!"                 {return static_cast<token_type>(*yytext);}
+"&"                 {return static_cast<token_type>(*yytext);}
+"|"                 {return static_cast<token_type>(*yytext);}
+"["                 {return static_cast<token_type>(*yytext);}
+"]"                 {return static_cast<token_type>(*yytext);}
+";"                 {return static_cast<token_type>(*yytext);}
+","                 {return static_cast<token_type>(*yytext);}
+"'"                 {return static_cast<token_type>(*yytext);}
+"\""                {return static_cast<token_type>(*yytext);}
 
 
  /* gobble up white-spaces */
@@ -72,6 +111,10 @@ typedef decaf::Parser::token_type token_type;
                 yylloc->step();
                 return token::EOL;
             }
+
+
+
+
 
  /* pass all other characters up to bison */
 .           {
