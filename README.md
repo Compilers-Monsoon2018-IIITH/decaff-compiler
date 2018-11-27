@@ -2,14 +2,13 @@
 
 Compiler to produce llvm IR for a given code in decaf language 
 
-[**Decaf Syntax Specifications**]()
 
 ## Prerequisites
 
 > llvm compiler installed
 > Bison and Flex installed to work with C++
 
-##Directory Structure
+## Directory Structure
 >	.
 >	├── phase-1
 >	│   ├── lex.yy.c
@@ -88,10 +87,11 @@ Test files are in the folder **test-programs**
 
 ## Features
 > This code has been tested on ubuntu. If this does not works with any other linux distro, try to check the installation process of bison, flex and llvm for that particular distro. Also Make file might not work with all the linux distros, so you need to change the linking part in the compilation process yourself.
+> Build using visitor pattern
 
 > Can Parse Decaf syntax and 
 > Can Create AST for any and all valid syntax of decaf language.
 
 
-#Yet to do
+## Yet to do
 >Generate IR for the code.
