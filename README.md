@@ -10,20 +10,20 @@ Compiler to produce llvm IR for a given code in decaf language
 
 ## Directory Structure
 >	.
->	├── phase-1
->	│   ├── lex.yy.c
->	│   ├── Makefile
->	│   ├── parser
->	│   ├── parser.tab.c
->	│   ├── parser.tab.h
->	│   ├── parser.y
->	│   └── scanner.l
->	├── phase-2
->	│   ├── ast.cc
->	│   ├── ast.h
->	│   ├── calc.ll
->	│   ├── calc.yy
->	│   ├── driver.cc
+>	+-- _phase-1
+>	│   +-- lex.yy.c
+>	│   +-- Makefile
+>	│   +-- parser
+>	│   +-- parser.tab.c
+>	│   +-- parser.tab.h
+>	│   +-- parser.y
+>	│   +-- scanner.l
+>	+-- _phase-2
+>	│   +-- ast.cc
+>	│   +-- ast.h
+>	│   +-- calc.ll
+>	│   +-- calc.yy
+>	│   +-- driver.cc
 >	│   ├── driver.h
 >	│   ├── Makefile
 >	│   ├── PostFixVisitor.h
