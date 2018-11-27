@@ -1,0 +1,1 @@
+class Program {int fib(int n) {if(n<3) {return 1;} else {return fib(n-1)+fib(n-2);} } void main(int jj) {int n,out; callout("scanf",n); if(n>0) {out=fib(n);} callout("printf","The nth fibonoci number is %d\n",out); } }

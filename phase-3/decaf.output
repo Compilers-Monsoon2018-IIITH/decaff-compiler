@@ -1,0 +1,284 @@
+Terminals unused in grammar
+
+   EOL
+   hex_literal
+   TRUE
+   RETURN
+   BREAK
+   FALSE
+   VOID
+   IF
+   FOR
+   ELSE
+   CALLOUT
+   CONTINUE
+   char_literal
+   string_literal
+   '?'
+   '+'
+   '-'
+   '*'
+   '/'
+
+
+Grammar
+
+    0 $accept: program END
+
+    1 program: CLASS PROGRAM '{' declaration '}'
+
+    2 declaration: field_decls
+
+    3 field_decls: %empty
+    4            | field_decls field_decl
+
+    5 field_decl: INT variable_star ';'
+    6           | BOOLEAN variable_star ';'
+
+    7 variable_star: variable
+    8              | variable ',' variable_star
+
+    9 variable: ID
+   10         | ID '[' decimal_literal ']'
+
+
+Terminals, with rules where they appear
+
+END (0) 0
+'*' (42)
+'+' (43)
+',' (44) 8
+'-' (45)
+'/' (47)
+';' (59) 5 6
+'?' (63)
+'[' (91) 10
+']' (93) 10
+'{' (123) 1
+'}' (125) 1
+error (256)
+EOL (258)
+hex_literal (259)
+decimal_literal (260) 10
+TRUE (261)
+RETURN (262)
+BREAK (263)
+FALSE (264)
+VOID (265)
+IF (266)
+FOR (267)
+ELSE (268)
+CALLOUT (269)
+CONTINUE (270)
+INT (271) 5
+BOOLEAN (272) 6
+PROGRAM (273) 1
+CLASS (274) 1
+ID (275) 9 10
+char_literal (276)
+string_literal (277)
+
+
+Nonterminals, with rules where they appear
+
+$accept (34)
+    on left: 0
+program (35)
+    on left: 1, on right: 0
+declaration (36)
+    on left: 2, on right: 1
+field_decls (37)
+    on left: 3 4, on right: 2 4
+field_decl (38)
+    on left: 5 6, on right: 4
+variable_star (39)
+    on left: 7 8, on right: 5 6 8
+variable (40)
+    on left: 9 10, on right: 7 8
+
+
+State 0
+
+    0 $accept: . program END
+
+    CLASS  shift, and go to state 1
+
+    program  go to state 2
+
+
+State 1
+
+    1 program: CLASS . PROGRAM '{' declaration '}'
+
+    PROGRAM  shift, and go to state 3
+
+
+State 2
+
+    0 $accept: program . END
+
+    END  shift, and go to state 4
+
+
+State 3
+
+    1 program: CLASS PROGRAM . '{' declaration '}'
+
+    '{'  shift, and go to state 5
+
+
+State 4
+
+    0 $accept: program END .
+
+    $default  accept
+
+
+State 5
+
+    1 program: CLASS PROGRAM '{' . declaration '}'
+
+    $default  reduce using rule 3 (field_decls)
+
+    declaration  go to state 6
+    field_decls  go to state 7
+
+
+State 6
+
+    1 program: CLASS PROGRAM '{' declaration . '}'
+
+    '}'  shift, and go to state 8
+
+
+State 7
+
+    2 declaration: field_decls .
+    4 field_decls: field_decls . field_decl
+
+    INT      shift, and go to state 9
+    BOOLEAN  shift, and go to state 10
+
+    $default  reduce using rule 2 (declaration)
+
+    field_decl  go to state 11
+
+
+State 8
+
+    1 program: CLASS PROGRAM '{' declaration '}' .
+
+    $default  reduce using rule 1 (program)
+
+
+State 9
+
+    5 field_decl: INT . variable_star ';'
+
+    ID  shift, and go to state 12
+
+    variable_star  go to state 13
+    variable       go to state 14
+
+
+State 10
+
+    6 field_decl: BOOLEAN . variable_star ';'
+
+    ID  shift, and go to state 12
+
+    variable_star  go to state 15
+    variable       go to state 14
+
+
+State 11
+
+    4 field_decls: field_decls field_decl .
+
+    $default  reduce using rule 4 (field_decls)
+
+
+State 12
+
+    9 variable: ID .
+   10         | ID . '[' decimal_literal ']'
+
+    '['  shift, and go to state 16
+
+    $default  reduce using rule 9 (variable)
+
+
+State 13
+
+    5 field_decl: INT variable_star . ';'
+
+    ';'  shift, and go to state 17
+
+
+State 14
+
+    7 variable_star: variable .
+    8              | variable . ',' variable_star
+
+    ','  shift, and go to state 18
+
+    $default  reduce using rule 7 (variable_star)
+
+
+State 15
+
+    6 field_decl: BOOLEAN variable_star . ';'
+
+    ';'  shift, and go to state 19
+
+
+State 16
+
+   10 variable: ID '[' . decimal_literal ']'
+
+    decimal_literal  shift, and go to state 20
+
+
+State 17
+
+    5 field_decl: INT variable_star ';' .
+
+    $default  reduce using rule 5 (field_decl)
+
+
+State 18
+
+    8 variable_star: variable ',' . variable_star
+
+    ID  shift, and go to state 12
+
+    variable_star  go to state 21
+    variable       go to state 14
+
+
+State 19
+
+    6 field_decl: BOOLEAN variable_star ';' .
+
+    $default  reduce using rule 6 (field_decl)
+
+
+State 20
+
+   10 variable: ID '[' decimal_literal . ']'
+
+    ']'  shift, and go to state 22
+
+
+State 21
+
+    8 variable_star: variable ',' variable_star .
+
+    $default  reduce using rule 8 (variable_star)
+
+
+State 22
+
+   10 variable: ID '[' decimal_literal ']' .
+
+    $default  reduce using rule 10 (variable)

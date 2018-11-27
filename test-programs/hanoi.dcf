@@ -1,0 +1,1 @@
+class Program {void toWhanoi(int n,int sour,int dest,int supp) {if(n==1) {callout("printf","Move disk 1 from rod %d to rod %d\n",sour,dest); return ; } toWhanoi(n-1,sour,supp,dest); callout("printf","Move disk from rod %d to rod %d\n",sour,dest); toWhanoi(n-1,supp,dest,sour); } void main(int jj) {int n; callout("scanf",n); toWhanoi(n,1,2,3); } }
