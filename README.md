@@ -10,46 +10,46 @@ Compiler to produce llvm IR for a given code in decaf language
 > Bison and Flex installed to work with C++
 
 ##Directory Structure
-.
-├── phase-1
-│   ├── lex.yy.c
-│   ├── Makefile
-│   ├── parser
-│   ├── parser.tab.c
-│   ├── parser.tab.h
-│   ├── parser.y
-│   └── scanner.l
-├── phase-2
-│   ├── ast.cc
-│   ├── ast.h
-│   ├── calc.ll
-│   ├── calc.yy
-│   ├── driver.cc
-│   ├── driver.h
-│   ├── Makefile
-│   ├── PostFixVisitor.h
-│   └── scanner.h
-├── phase-3
-│   ├── a.out
-│   ├── ClassDefs.h
-│   ├── codegenerator.h
-│   ├── decaf.l
-│   ├── decaf.output
-│   ├── decaf.tab.c
-│   ├── decaf.tab.h
-│   ├── decaf.y
-│   ├── input.txt
-│   ├── lex.yy.c
-│   ├── Makefile
-│   └── visitor.h
-├── README
-└── test-programs
-    ├── binary.dcf
-    ├── even.dcf
-    ├── fact.dcf
-    ├── fib.dcf
-    ├── hanoi.dcf
-    └── mergesort.dcf
+>	.
+>	├── phase-1
+>	│   ├── lex.yy.c
+>	│   ├── Makefile
+>	│   ├── parser
+>	│   ├── parser.tab.c
+>	│   ├── parser.tab.h
+>	│   ├── parser.y
+>	│   └── scanner.l
+>	├── phase-2
+>	│   ├── ast.cc
+>	│   ├── ast.h
+>	│   ├── calc.ll
+>	│   ├── calc.yy
+>	│   ├── driver.cc
+>	│   ├── driver.h
+>	│   ├── Makefile
+>	│   ├── PostFixVisitor.h
+>	│   └── scanner.h
+>	├── phase-3
+>	│   ├── a.out
+>	│   ├── ClassDefs.h
+>	│   ├── codegenerator.h
+>	│   ├── decaf.l
+>	│   ├── decaf.output
+>	│   ├── decaf.tab.c
+>	│   ├── decaf.tab.h
+>	│   ├── decaf.y
+>	│   ├── input.txt
+>	│   ├── lex.yy.c
+>	│   ├── Makefile
+>	│   └── visitor.h
+>	├── README
+>	└── test-programs
+>   	    ├── binary.dcf
+>	    ├── even.dcf
+>	    ├── fact.dcf
+>	    ├── fib.dcf
+>	    ├── hanoi.dcf
+>	    └── mergesort.dcf
 
 
 
