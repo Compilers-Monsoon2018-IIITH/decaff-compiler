@@ -1,1 +1,0 @@
-class Program { int a,b; int arr[1];}
